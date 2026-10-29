@@ -40,3 +40,10 @@ integer arithmetic, so there are no floating-point rounding surprises.
   the one stored nearest the root, which is stable with respect to tree
   structure rather than insertion order.
 - `x` outside `[x_min, x_max]` raises `ValueError`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
